@@ -1455,7 +1455,21 @@ function renderCollectedBooks() {
   `).join("");
 }
 
-// 在叠层窗口内显示书籍，不调用 openBook() 或 render()
+// 点击资料栏里的已读书籍：在叠层窗口中阅读
+document.getElementById("collected-books").addEventListener("click", event => {
+  const button = event.target.closest("[data-book-index]");
+  if (!button) return;
+
+  const index = Number(button.dataset.bookIndex);
+  const book = state.collectedBooks[index];
+  if (!book) return;
+
+  const bookData = books[book.type];
+  if (!bookData) return;
+
+  utilitySidebar.classList.remove("open");
+
+  // 在叠层窗口内显示书籍，不调用 openBook() 或 render()
   modalRoot.innerHTML = `
     <div class="bookshelf-overlay">
       <div class="bookshelf-window">
@@ -1478,6 +1492,7 @@ function renderCollectedBooks() {
   document.getElementById("back-to-bookshelf").click();
   });
 });
+
 
 story.addEventListener("input", (event) => {
   if (event.target.id === "slogan1-input") {
