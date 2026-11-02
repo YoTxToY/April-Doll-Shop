@@ -1,0 +1,1612 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>四月的机械人偶工作室</title>
+<style>
+body {
+  background:
+    radial-gradient(ellipse at 20% 15%, rgba(89, 83, 160, .20), transparent 42%),
+    radial-gradient(ellipse at 80% 65%, rgba(57, 86, 155, .18), transparent 45%),
+    linear-gradient(180deg, #070b19 0%, #10162b 55%, #080c1b 100%);
+  background-attachment: scroll;
+  color: #8890bd;
+  font-family: 'Noto Serif SC', 'Songti SC', serif;
+  min-height: 100vh;
+  position: relative;
+}
+.container-fluid {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 28px 22px 60px;
+  box-sizing: border-box;
+}
+.story-shell {
+  background: rgba(13, 19, 40, .88);
+  border: 1px solid rgba(157, 169, 230, .22);
+  border-radius: 14px;
+  padding: 30px 34px;
+  box-shadow: 0 8px 35px rgba(0, 0, 0, .25),
+              0 0 30px rgba(91, 102, 190, .08);
+}
+.story-title {
+  letter-spacing: .12em;
+  text-align: center;
+  margin: 8px 0 4px;
+  color: #dce2ff;
+}
+.story-subtitle {
+  text-align: center;
+  color: #929dc9;
+  font-size: 12px;
+  letter-spacing: .18em;
+  margin-bottom: 28px;
+}
+.scene-label {
+  color: #aeb9ee;
+  font-size: 12px;
+  letter-spacing: .14em;
+  border-bottom: 1px solid rgba(157, 169, 230, .24);
+  padding-bottom: 9px;
+  margin: 22px 0 18px;
+}
+p {
+  line-height: 1.95;
+  margin: 0 0 13px;
+  color: #e2e5f5;
+}
+.dialogue {
+  margin: 0 0 12px;
+  line-height: 1.9;
+  color: #e2e5f5;
+}
+.thought {
+  font-style: italic;
+  color: #a9b0ca;
+}
+.panel {
+  background: rgba(48, 57, 94, .38);
+  border-left: 3px solid #858fd0;
+  padding: 14px 18px;
+  margin: 18px 0;
+  color: #e0e4fa;
+}
+.choice-card {
+  background: rgba(34, 43, 75, .62);
+  border: 1px solid rgba(145, 158, 220, .25);
+  border-radius: 9px;
+  padding: 16px;
+  margin: 10px 0;
+  color: #e2e5f5;
+}
+.btn {
+  display: inline-block;
+  border-radius: 7px;
+  margin: 5px 5px 5px 0;
+  white-space: normal;
+  transition: background .2s ease, border-color .2s ease;
+  cursor: pointer;
+  padding: 8px 13px;
+  font: inherit;
+  line-height: 1.5;
+}
+.btn-primary {
+  background: #505b94;
+  border: 1px solid #6976b4;
+  color: #ffffff;
+}
+.btn-primary:hover, .btn-primary:focus {
+  background: #6876b5;
+  border-color: #9aa7ee;
+  color: #ffffff;
+}
+.btn-default {
+  background: rgba(27, 35, 63, .9);
+  border: 1px solid #59658f;
+  color: #dce2ff;
+}
+.btn-default:hover, .btn-default:focus {
+  background: #343f6c;
+  border-color: #8795d6;
+  color: #ffffff;
+}
+.status {
+  color: #9ba7d4;
+  font-size: 12px;
+  letter-spacing: .08em;
+}
+hr {
+  border: 0;
+  border-top: 1px solid rgba(157, 169, 230, .22);
+  margin: 24px 0;
+}
+input[type='text'] {
+  width: 100%;
+  max-width: 420px;
+  box-sizing: border-box;
+  background: #11182e;
+  color: #e8ebff;
+  border: 1px solid #59658f;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font: inherit;
+}
+
+.shop-sign {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 20px auto;
+  padding: 22px 20px;
+  color: #e8ebff;
+  background: linear-gradient(145deg, #171d35, #11182e);
+  border: 1px solid #59658f;
+  border-radius: 4px;
+  box-shadow:
+    inset 0 0 0 4px rgba(154, 167, 238, 0.06),
+    0 5px 16px rgba(0, 0, 0, 0.18);
+}
+
+.shop-sign-header {
+  text-align: center;
+}
+
+.shop-sign-en,
+.shop-sign-label {
+  color: #aab5ed;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+}
+
+.shop-sign-header h3 {
+  margin: 10px 0;
+  color: #f0e4c9;
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
+}
+
+.shop-sign-intro {
+  min-height: 24px;
+  line-height: 1.8;
+}
+
+.shop-sign-divider {
+  height: 1px;
+  margin: 16px 0;
+  background: #59658f;
+}
+
+.shop-sign-business {
+  min-height: 20px;
+  line-height: 1.8;
+}
+
+.shop-sign-slogans {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.shop-sign-label {
+  margin-bottom: 4px;
+}
+
+.shop-sign-slogans textarea {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 9px 10px;
+  color: #e8ebff;
+  background: rgba(10, 15, 31, 0.45);
+  border: 1px solid #59658f;
+  border-radius: 3px;
+  font: inherit;
+  line-height: 1.7;
+  resize: vertical;
+}
+
+.shop-sign-slogans textarea:focus {
+  border-color: #aab5ed;
+  outline: none;
+  box-shadow: 0 0 6px rgba(154, 167, 238, 0.2);
+}
+
+.shop-sign-slogans textarea::placeholder {
+  color: #8992b5;
+}
+
+input[type='text']:focus {
+  border-color: #9aa7ee;
+  outline: none;
+  box-shadow: 0 0 7px rgba(154, 167, 238, .25);
+}
+.form-control, .selectize-input, select {
+  background: #11182e;
+  color: #e2e5f5;
+  border-color: #59658f;
+}
+.form-control:focus, select:focus {
+  background: #11182e;
+  color: #ffffff;
+  border-color: #9aa7ee;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: .55;
+  background-image:
+    radial-gradient(1px 1px at 10% 20%, #ffffff 99%, transparent),
+    radial-gradient(1px 1px at 30% 75%, #c9d5ff 99%, transparent),
+    radial-gradient(2px 2px at 55% 35%, #ffffff 99%, transparent),
+    radial-gradient(1px 1px at 78% 18%, #d5d9ff 99%, transparent),
+    radial-gradient(1px 1px at 90% 65%, #ffffff 99%, transparent),
+    radial-gradient(2px 2px at 42% 50%, #aebcff 99%, transparent),
+    radial-gradient(1px 1px at 68% 88%, #ffffff 99%, transparent);
+  background-size: 350px 300px;
+}
+.container-fluid {
+  position: relative;
+  z-index: 1;
+}
+
+/* 原 Shiny 魔法弹窗的网页实现 */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow-y: auto;
+  background: radial-gradient(
+    circle at 50% 45%,
+    rgba(91, 54, 160, .62),
+    rgba(20, 15, 43, .88) 75%
+  );
+}
+.modal-dialog {
+  width: min(520px, calc(100vw - 40px));
+  margin: auto;
+  animation: magicAppear .45s cubic-bezier(.2,.8,.2,1);
+}
+.modal-content {
+  background:
+    radial-gradient(circle at top right, rgba(224,211,255,.8), transparent 48%),
+    linear-gradient(145deg, #fffdf8, #f0e9ff);
+  color: #29213d;
+  border: 1px solid #c6a6ff;
+  border-radius: 18px;
+  box-shadow:
+    0 0 18px rgba(183,143,255,.4),
+    0 0 55px rgba(117,75,220,.28),
+    0 20px 65px rgba(0,0,0,.4);
+  overflow: hidden;
+}
+.modal-header {
+  border-bottom: 1px solid rgba(133,95,190,.25);
+  padding: 22px 26px 16px;
+}
+.modal-title {
+  color: #57349b;
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  line-height: 1.5;
+  margin: 0;
+}
+.modal-body {
+  padding: 24px 28px;
+  color: #30213f;
+  font-size: 16px;
+  line-height: 1.9;
+}
+.modal-body p {
+  color: #30213f;
+  margin-bottom: 14px;
+}
+.modal-footer {
+  padding: 16px 24px 22px;
+  border-top: 1px solid rgba(133,95,190,.2);
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.modal-footer .btn-primary {
+  background: linear-gradient(135deg, #7952c8, #55339b);
+  border: 1px solid #9b7ad8;
+  border-radius: 8px;
+  color: #ffffff;
+  padding: 9px 20px;
+  font-size: 15px;
+}
+.modal-footer .btn-default {
+  background: #ffffff;
+  color: #493663;
+  border: 1px solid #c7b5e6;
+  border-radius: 8px;
+  padding: 9px 18px;
+}
+@keyframes magicAppear {
+  from { opacity: 0; transform: scale(.12); }
+  to { opacity: 1; transform: scale(1); }
+}
+@media (max-width: 600px) {
+  .container-fluid { padding: 18px 12px 40px; }
+  .story-shell { padding: 22px 18px; }
+  .modal-backdrop { padding: 16px; }
+  .modal-dialog { width: calc(100vw - 32px); }
+  .modal-header { padding: 18px 20px 14px; }
+  .modal-body { padding: 20px; font-size: 15px; }
+}
+button:focus-visible {
+  outline: 2px solid #aab5ff;
+  outline-offset: 2px;
+}
+.field-label {
+  display: block;
+  margin: 12px 0 6px;
+  color: #cdd5ff;
+}
+.plant-option {
+  display: block;
+  padding: 7px 0;
+}
+.plant-option input {
+  accent-color: #858fd0;
+  margin-right: 8px;
+}
+.toast {
+  position: fixed;
+  z-index: 1200;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  background: #222b4b;
+  color: #e2e5f5;
+  border: 1px solid #8795d6;
+  border-radius: 8px;
+  padding: 12px 18px;
+  box-shadow: 0 6px 24px #0006;
+  max-width: calc(100vw - 32px);
+}
+
+/* 故事主容器 */
+.story-shell {
+  background: rgba(13, 19, 40, 0.94) !important;
+  color: #e2e5f5;
+}
+
+/* 书架上的书籍选项 */
+.choice-card {
+  background: rgba(34, 43, 75, 0.82) !important;
+  border: 1px solid rgba(145, 158, 220, 0.35);
+  border-radius: 9px;
+  color: #e2e5f5 !important;
+}
+
+/* 书籍标题和普通文字 */
+.story-shell h1,
+.story-shell h2,
+.story-shell h3,
+.story-shell h4,
+.story-shell p,
+.story-shell label {
+  color: #e2e5f5;
+}
+
+/* 避免按钮或内容区域出现白色底色 */
+.story-shell .btn-default {
+  background: rgba(27, 35, 63, 0.95) !important;
+  color: #dce2ff !important;
+  border-color: #59658f;
+}
+
+.story-shell .btn-primary {
+  background: #505b94 !important;
+  color: #ffffff !important;
+  border-color: #6976b4;
+}
+#utility-menu-button {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 2000;
+  padding: 9px 14px;
+  border: 1px solid #8795d6;
+  border-radius: 8px;
+  background: #222b4b;
+  color: white;
+  cursor: pointer;
+}
+
+.utility-sidebar {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 300px;
+  max-width: 85vw;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 24px 18px;
+  background: #151b30;
+  color: #e2e5f5;
+  border-right: 1px solid #8795d6;
+  z-index: 1999;
+  box-shadow: 4px 0 20px #0006;
+}
+
+.utility-sidebar.open {
+  display: block;
+}
+
+.utility-sidebar input {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 8px 0;
+  padding: 9px;
+}
+
+/* 资料栏按钮统一样式 */
+.utility-sidebar button {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 8px 0;
+  padding: 9px 12px;
+
+  background: rgba(34, 43, 75, 0.9);
+  color: #e2e5f5;
+  border: 1px solid rgba(145, 158, 220, 0.45);
+  border-radius: 8px;
+
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.utility-sidebar button:hover,
+.utility-sidebar button:focus {
+  background: #343f6c;
+  color: #ffffff;
+  border-color: #8795d6;
+}
+
+
+/* ===== 书架弹层 ===== */
+.bookshelf-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  background: rgba(3, 6, 18, 0.82);
+}
+
+.bookshelf-window {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  padding: 30px 34px;
+  box-sizing: border-box;
+  background: rgba(13, 19, 40, 0.98);
+  border: 1px solid rgba(157, 169, 230, 0.35);
+  border-radius: 14px;
+  box-shadow: 0 12px 45px rgba(0, 0, 0, 0.55);
+  color: #e2e5f5;
+}
+
+.bookshelf-window h4,
+.bookshelf-window p {
+  color: #e2e5f5;
+}
+
+.bookshelf-window .choice-card {
+  background: rgba(34, 43, 75, 0.82);
+  border: 1px solid rgba(145, 158, 220, 0.35);
+  border-radius: 9px;
+  padding: 16px;
+}
+
+.bookshelf-window .btn-default {
+  background: rgba(27, 35, 63, 0.95);
+  color: #dce2ff;
+  border-color: #59658f;
+}
+
+.bookshelf-window .btn-primary {
+  background: #505b94;
+  color: #ffffff;
+  border-color: #6976b4;
+}
+
+.bookshelf-close {
+  position: sticky;
+  top: 0;
+  float: right;
+  z-index: 2;
+  padding: 7px 13px;
+  border: 1px solid #8795d6;
+  border-radius: 8px;
+  background: #222b4b;
+  color: white;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .bookshelf-overlay {
+    padding: 12px;
+  }
+
+  .bookshelf-window {
+    max-height: calc(100vh - 24px);
+    padding: 22px 18px;
+  }
+}
+
+
+
+
+
+
+</style>
+</head>
+<body>
+
+
+<div id="utility-sidebar" class="utility-sidebar">
+
+  <h3>角色资料</h3>
+
+  <label for="rename-input">修改你的名字</label>
+  <input id="rename-input" type="text" maxlength="80"
+         placeholder="输入新名字">
+  <button id="save-rename" type="button">保存名字</button>
+
+  <hr>
+
+  <h3>已收录书籍</h3>
+  <div id="collected-books">
+    <p>还没有读过任何书。</p>
+  </div>
+
+  <button id="back-to-bookshelf" class="btn btn-primary">书架</button>
+
+  <button id="重新开始游戏" type="button">重新开始游戏</button>
+
+</div>
+
+<main class="container-fluid">
+  <section class="story-shell">
+    <h2 class="story-title">四月的机械人偶工作室</h2>
+    <div class="story-subtitle">IV SYSTEM / INTERACTIVE EDITION</div>
+    <div id="story"></div>
+    <hr>
+    <div class="status" id="status">阅读进度：初始启动</div>
+  </section>
+</main>
+<div id="modal-root"></div>
+<div id="toast-root" aria-live="polite"></div>
+
+<button
+  id="utility-menu-button"
+  type="button"
+  aria-expanded="false"
+  aria-controls="utility-sidebar"
+  style="display: none;"
+>
+  ☰ 资料栏
+</button>
+
+<script>
+"use strict";
+
+const openingHTML = `
+<div class="scene-label">01 / 初始启动</div>
+<p>你睁开了眼。</p>
+<p>首先映入眼帘的是一张少女的脸。齐肩的短发从肩膀上方略微垂下。一双乌黑的眼睛平静地看着你，面上看不出什么表情。</p>
+<p>看到你醒来，她什么也没说，退向身后，非常丝滑地躺到了地上。</p>
+<p>她这副模样，不禁让你觉得有些可爱。</p>
+<p>不过，你很快意识到自己正坐在地板上。好在有一层地毯隔绝了地面的寒冷。</p>
+<p>视线环绕四周，身侧是一面落地窗。而这里看起来像是一家小型工作室。不远处还有一套桌椅，房间里的柜子上摆满了一些叫不出名字的、看起来奇形怪状的工具。墙边还有一段通往二楼的楼梯。</p>
+<p>这时，你发现眼前凭空多出了一个奇怪的面板。</p>
+<details class="panel">
+  <summary><strong>查看任务板</strong></summary>
+  <h4>MISSION / 主线任务</h4>
+  <p><strong>任务名称：</strong>协助店长经营店铺</p>
+  <p><strong>完成指标：</strong>店面建设度 100；业务完成数量 5</p>
+  <p><strong>当前进度：</strong>建设度 0 / 100；业务 0 / 5</p>
+</details>
+<p class="thought">任务？我的吗？</p>
+<p class="thought">完成了有什么奖励？不完成会怎么样？</p>
+<p class="thought">这里没有别人，店长应该就是这个少女了吧。</p>
+<p class="thought">至于店铺，难道是这里吗？暂时看不出是做什么的。看起来有点像五金店。</p>
+<p class="thought">五金店？那是什么？</p>
+<p class="thought">不对，我怎么没有任何记忆。我是谁？</p>
+<p>你突然有些慌乱和不安。</p>
+<p>就在这时，你面前的少女及时地坐起身来。</p>
+<p class="dialogue"><strong>四月：</strong>你好，我是四月。你是完全由我组装的第一个人偶，代号 IV-01。</p>
+<p class="dialogue"><strong>四月：</strong>不过组装完成后，你现在已经是一个独立的人偶了。或许你想给自己取个名字吗？</p>
+<p>说着，她还轻微歪了下头，似乎有些不知道要怎么对待你。</p>
+<div class="choice-card">
+  <h4>IDENTITY / 角色命名</h4>
+  <p>请选择初始称呼。你可以输入一个名字，也可以暂时使用代号 01。</p>
+  <label class="field-label" for="name-input">你想给自己取什么名字？</label>
+  <input type="text" id="name-input" placeholder="输入名字（可留空）" maxlength="80">
+  <div>
+    <button class="btn btn-primary" id="confirm-name">确认名称</button>
+    <button class="btn btn-default" id="keep-01">稍后再说</button>
+  </div>
+</div>`;
+
+const tutorialHTML = `
+<div class="scene-label">02 / 工作说明</div>
+<p class="dialogue"><strong>四月：</strong>这里是一个机械人偶店。你的任务是帮来到这里的客人解答关于人偶的任何问题，解释本店的业务，帮助我和客人进行沟通。</p>
+<p class="dialogue"><strong>四月：</strong>接下来的几天，我先给你看一些关于推销和营业沟通的书，也给你普及一些人偶知识。这里的其他书籍，如果有你想看的，也可以自己去了解。</p>
+<p>四月起身，从旁边飘窗下的柜子里拿出来了一摞书，目测有十几本。</p>
+<p class="dialogue"><strong>四月：</strong>今天你先把这几本书看了。看完之后，那边书架上的书都可以随便看。我先去休息，你有什么不懂的，等我起了再问。明天开始，我给你具体讲一下店铺主营业务。</p>
+<p>说完，她就通过楼梯去了二楼。</p>
+<p>你看着面前的一摞书，不知道这怎么会被称之为“几本”，明明就是很多本。怎么会在一天内看完呢？</p>
+<p>不过随即你就想起来了。</p>
+<p class="thought">哦，对了，刚才她说我是人偶。人偶的话，会学得快一点吗？那么，什么是人偶？</p>
+<p>心中的疑问不会凭空得到解答。</p>
+<p>事已至此，先看看书吧。</p>
+<p>前面的几本书都是关于营业和推销的。</p>
+<p>《如何三句话拿捏客人的心理》《微笑服务》《30分钟教你学会营销》……</p>
+<p>由于本来也是要当营业员，你也没挑，只是一本一本读下来。</p>
+<p>没多久就看到了最后一本书。</p>
+<p><strong>《新时代的产物：机械人偶》</strong></p>
+<p>哦！这是我的说明书呢。</p>`;
+
+const manualHTML = `
+<h3>ARCHIVE / 书籍记录 001</h3>
+<details open>
+<summary><strong>《新时代的产物：机械人偶》—— 点击展开书籍内容</strong></summary>
+<h3>人偶系统</h3>
+<h4>一、系统设置</h4>
+<p>人偶系统由两个相互独立的子系统构成：</p>
+<ul>
+<li><strong>行动系统：</strong>负责驱动人偶躯壳，控制其运动与行为。</li>
+<li><strong>语言处理器：</strong>负责语言理解、信息处理与交流。</li>
+</ul>
+<p>两个子系统分别采用独立的供能机制。</p>
+<h4>二、人偶类型</h4>
+<p><strong>1. 非自动人偶（主流）</strong></p>
+<p><strong>驱动方式：</strong>能源驱动处理器，魔法驱动棉花人偶躯壳。</p>
+<p>非自动人偶是目前最主流的人偶类型。其躯壳通常以棉花等柔软材料填充，本身几乎不具备自主行动能力，更接近一个等待外部操控的载体。使用者通过施展魔法控制人偶的活动，而处理器则由能源提供运行所需的动力。</p>
+<blockquote>技术背景：在以魔法为主导的世界里，几乎所有人都掌握着操控人偶所需的基础魔法。对于普通玩具而言，使用魔力水晶驱动躯壳的成本过高，因此由使用者直接施法操控，成为更经济、普遍的选择。</blockquote>
+<p><strong>2. 全自动人偶（技术门槛高，造价昂贵）</strong></p>
+<p><strong>驱动方式：</strong>能源驱动处理器，魔法驱动机械人偶躯壳。</p>
+<p>与非自动人偶不同，全自动人偶能够结合语言处理器接收的信息，自主生成相应行为，并通过处理器控制自身行动，无须使用者持续施法操控。</p>
+<p>然而，这类人偶的制造成本与技术门槛都远高于非自动人偶。</p>
+<blockquote>技术瓶颈：在以魔法为主导的社会中，机械动力技术长期缺乏发展。机械人偶的行动设计往往不够高效，驱动躯壳需要消耗大量能源，因此必须携带更多能源才能维持运作。</blockquote>
+<p><strong>进一步的技术发展方向：</strong></p>
+<ul>
+<li>优化机械结构与行动逻辑，提高能源利用效率。</li>
+<li>在完成相同任务的前提下，尽可能降低能源消耗。</li>
+<li>减少人偶内部所需携带的能源体积，从而减轻整体重量。</li>
+<li>提高续航能力，使机械人偶更加轻便、便携。</li>
+</ul>
+<h4>三、产业现状与社会影响</h4>
+<p>随着人偶产业的飞速发展，越来越多的人偶在外形与细节上高度接近真人，甚至已经达到难以凭外观辨别真伪的程度。</p>
+<p>这项技术的进步也带来了新的社会问题。针对人偶的生产、使用及相关管理，目前正处于紧急拟定法规的阶段。</p>
+<p><em>随着人偶逐渐融入日常生活，如何界定人偶的功能、使用边界与管理责任，已成为社会亟待解决的问题。</em></p>
+</details>`;
+
+const bookMagicHTML = `
+<h3>能源体系</h3>
+<h4>一、魔力晶石（天然）</h4>
+<p>魔力晶石是天然形成的高品质能源，具有较高的魔力纯度、强大的能量输出与持久的续航能力。</p>
+<ul>
+<li>能源特性：高纯度、高续航。</li>
+<li>管理方式：主要由国家掌控。</li>
+<li>主要用途：大型设施、公共系统及其他对能源稳定性要求较高的领域。</li>
+</ul>
+<h4>二、魔力水晶（人造）</h4>
+<p>魔力水晶由魔法师注入能量制成，是日常生活与商业市场中常见的能源载体。与天然魔力晶石相比，其魔力纯度、能量强度与续航能力相对较弱，但制造方式更加灵活。</p>
+<p><strong>能源等级：</strong>D 级用于小型日用品；C 级用于中型设备；B 级用于中大型设备；A 级用于高精密与复杂设备。</p>
+<p><strong>附加功能：</strong>制冷、制热、照明、发光及其他特殊效果。</p>
+<p><strong>市场形态：</strong>品牌标准化生产以基础功能为主，通过专卖店售卖并提供预约购买与配送；工作室与个人开发则更注重特色功能、个性化设计，可通过商店寄售或自行开店售卖。</p>
+<h4>三、物质晶核（科技侧）</h4>
+<p>物质晶核是科学技术领域合成的能源载体，能够替代魔法驱动，为机械系统、武器及其他科技设备提供动力。它使机械设备不再完全依赖魔法能源，为机械技术发展提供新的可能。</p>
+<hr>
+<h3>语言处理器</h3>
+<p>语言处理器是一种类似人工智能的系统，由一个身份未知的工作室制作，主要功能是模拟人类对话与人格，并以人偶或玩偶作为搭载载体。</p>
+<p>语言处理器初次启动时为空白状态，仅具备语言表达与理解能力，不包含预设人格，也不储存额外知识。使用者通过持续交流与信息输入，逐步提供知识并培养其人格表现。</p>
+<blockquote>官方定位：语言处理器并非预先装载固定人格的成品，而是一个能够通过持续互动逐步形成个体化表现的系统。</blockquote>
+<p>其核心价值不在于提供知识或完成工具性任务，而在于模拟交流、形成互动，并提供情绪陪伴。随着储存与处理的信息量增加，能源消耗也会相应增大。</p>
+<p>语言处理器最初主要应用于儿童玩具领域。随着技术发展，它逐渐超越传统玩具的定位，成为能够提供个性化互动与情绪陪伴的产品。</p>
+<hr>
+<h3>通讯系统</h3>
+<p>当前社会同时存在传统通讯设备与魔法通讯技术：传统电话、魔法传讯，以及以水晶球作为设备的魔法电话。</p>
+<p>快递行业采用统一管理体系，传统运输与魔法运输并存。魔法快递通常更快，拥有固定道路、运输路线与运送方式。个人建立或使用独立快递通道需要提前报备，大多数人仍通过快递公司寄送物品。</p>
+<p>动态报纸是当前社会的信息传播媒介之一。</p>
+<hr>
+<h3>交通系统</h3>
+<p>常见交通工具包括火车、公共汽车和自行车。飞行活动受到交通管理制度约束，实行限号制度。</p>
+<hr>
+<h3>权力体系</h3>
+<p>王权与法师是当前社会权力体系中的重要组成部分。</p>`;
+
+function unlockUtilityMenu() {
+  const menuButton = document.getElementById("utility-menu-button");
+
+  if (menuButton) {
+    menuButton.style.display = "block";
+  }
+}
+
+const books = {
+  magic: {
+    title: "《魔法 × 工业的世界（儿童科普读物）》",
+    content: bookMagicHTML
+  },
+  history: {
+    title: "《世界史》",
+    content: `<p>（厚重的书页里记载着这个世界的历史、文明更迭与技术发展。）</p>`
+  },
+  plants: {
+    title: "《植物对于幸福感的影响》",
+    content: `<p>研究表明，在生活与工作环境中适当摆放植物，可能有助于缓解压力与疲劳，并改善人对环境的主观感受。</p>`
+  },
+  language: {
+    title: "《语言处理器的使用说明》",
+    content: `<p>（本书介绍了语言处理器的运行原理、语音识别、语义解析与常见故障处理。其实类似现在的大语言模型，这些书的具体内容都还没编）</p>`
+  },
+  "30min": {
+    title: "《30分钟教会你营销》",
+    content: `<p></p>`
+  },
+  smile: {
+    title: "《微笑服务》",
+    content: `<p>作为一名合格的服务行业从业者，保持微笑是工作中必不可少的一部分</p>`
+  },
+  客人: {
+    title: "《如何三句话拿捏客人心理》",
+    content: `
+      <p>是否还在因为客人只看不买而烦恼？是否因为业绩不达标而烦恼？</p>
+      <p>不用担心！</p>
+      <p>读好这本书，教你学会如何掌握说话的艺术</p>
+    `
+  }
+};
+
+const state = {
+  slogan1: "本店可为您提供更丰富、便捷的人偶功能。",
+  slogan2: "致力于让每个人都找到更适合自己的人偶伙伴。",
+  sloganEditing: true,
+  stage: "opening",
+  playerName: "01",
+  named: false,
+  unlockedUtility: false,
+  readPlantsBook: false,
+  sidequestUnlocked: false,
+  selectedRoute: null,
+  selectedPlants: [],
+  lastResult: null,
+  storyDay: 1,
+  bookType: "",
+  bookTitle: "",
+  collectedBooks: []
+};
+
+const story = document.getElementById("story");
+const statusText = document.getElementById("status");
+const modalRoot = document.getElementById("modal-root");
+const toastRoot = document.getElementById("toast-root");
+
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[char]);
+}
+
+function showToast(message) {
+  toastRoot.innerHTML = `<div class="toast">${escapeHTML(message)}</div>`;
+  window.setTimeout(() => {
+    toastRoot.innerHTML = "";
+  }, 2800);
+}
+
+function updateStatus() {
+  const labels = {
+    opening: "初始启动",
+    naming: "角色命名",
+    tutorial: "工作说明",
+    manual: "人偶说明书",
+    bookshelf: "书架",
+    book: "阅读记录",
+    day2: "第二天",
+    customer: "第一位客人",
+    sidequest: "绿植计划",
+    flower_route: "花鸟市场",
+    florist: "听取推荐",
+    plant_shop: "自主选购",
+    result: "购买结果"
+  };
+
+  statusText.textContent =
+    "阅读进度：" + (labels[state.stage] || "故事进行中") +
+    (state.sidequestUnlocked ? "　｜　已解锁：购买银叶花支线" : "");
+}
+
+function render() {
+  updateStatus();
+
+  const utilityButton = document.getElementById("utility-menu-button");
+
+  if (state.stage === "bookshelf") {
+    state.unlockedUtility = true;
+  }
+
+  if (utilityButton) {
+    utilityButton.style.display =
+      state.unlockedUtility ? "block" : "none";
+  }
+
+  if (state.stage === "opening") {
+    story.innerHTML = openingHTML;
+    return;
+  }
+
+  if (state.stage === "naming") {
+    story.innerHTML = `
+      <div class="scene-label">IDENTITY ACCEPTED / 已提交命名</div>
+      <p>取名成功。之后，四月会用「${escapeHTML(state.playerName)}」称呼你。</p>
+      <p>四月轻轻点了点头。</p>
+      <button class="btn btn-primary" id="to-tutorial">继续</button>`;
+    return;
+  }
+
+  if (state.stage === "tutorial") {
+    story.innerHTML = tutorialHTML +
+      `<button class="btn btn-primary" id="to-manual">翻开</button>`;
+    return;
+  }
+
+  if (state.stage === "manual") {
+    story.innerHTML = manualHTML +
+      `<button class="btn btn-primary" id="to-bookshelf">书架</button>`;
+    return;
+  }
+
+  if (state.stage === "bookshelf") {
+  story.innerHTML = `
+    <div class="scene-label">ARCHIVE / 书架</div>
+    <p>你发现自己看过的书都会自动储存在脑子里，可以随时在脑海中调用和重新阅读其中的内容。刚才的内容看了一知半解，或许需要多看几本才能彻底理解这个世界。</p>
+    <p>现在也没什么其他事情干，看看书架上还有什么有用的书籍吧。</p>
+    <h4>请选择想阅读的书籍</h4>
+    <div class="choice-card">
+      ${Object.entries(books).map(([type, book]) => `
+        <button class="btn btn-default" id="book-${type}">
+          ${escapeHTML(book.title)}
+        </button>
+      `).join("")}
+    </div>
+    ${state.readPlantsBook
+      ? `<p class="status">阅读记录：你读过《植物对于幸福感的影响》。后续可以触发买花支线。</p>`
+      : ""}
+    <button class="btn btn-primary" id="to-day2">今天先到这里，前往第二天</button>
+  `;
+  return;
+}
+
+  if (state.stage === "book") {
+    const book = books[state.bookType];
+
+    if (!book) {
+      story.innerHTML = `<p>暂时没有这本书的内容。</p>`;
+      return;
+    }
+
+    story.innerHTML = `
+      <div class="scene-label">ARCHIVE / ${escapeHTML(book.title)}</div>
+      ${book.content}
+      <button class="btn btn-primary" id="back-bookshelf">返回书架</button>
+    `;
+    return;
+  }
+
+  if (state.stage === "day2") {
+    story.innerHTML = `
+      <div class="scene-label">DAY 02 / 第二天</div>
+      <p>四月从楼上下来。</p>
+      <p class="dialogue"><strong>${escapeHTML(state.playerName)}：</strong>早上好，店长。</p>
+      <p>四月貌似脚步一顿，然后便回了个“早”。声音不大，不过你还是听见了。</p>
+      <p>四月走到了你面前。</p>
+      <p class="dialogue"><strong>四月：</strong>书看得怎么样？</p>
+      <p>你回忆着书里的内容。</p>
+      <p class="dialogue"><strong>${escapeHTML(state.playerName)}：</strong>很高兴为您服务，店长。请问有什么需要帮助的吗？</p>
+      <p>四月点了点头，从凌乱的桌面上翻出来一张纸递了过来。</p>
+      <h4><strong>四月的机械人偶工作室</strong></h4>
+      <p><strong>主营业务</strong></p>
+      <ol>
+        <li>帮助客人将她们现有的人偶设置出她们心仪的性格特色</li>
+        <li>提高或修理人偶的可动性和功能性，例如改善关节、添加外置配件，以及修复受损功能。</li>
+        <li>人偶定制。</li>
+      </ol>
+      <p>四月详细解释了一下每项业务。第一项业务，是针对人偶已有的性格进行调试。每个人偶因为前期输入的数据和知识不同，会形成不同的性格，而这种性格很难通过重置完全清空。工作室可以帮助客人调整已有性格，使其达到接近预期的状态。</p>
+      <p>第二项业务主要针对机械功能的维修与改善，例如增加外置配件提供更多功能，或修复已经损坏的功能。</p>
+      <p>最后一项则是人偶定制。客人需要提供详细的需求，价格较高，制作周期也比较长，因此需要适当筛选顾客。</p>
+      <p>你听完点了点头，表示了解了。</p>
+      <p>很快便做好了一个牌子，不过你看着这张单子，感觉作为介绍的牌子有点太单调了。想起来昨天看的那本《30分钟教你学会营销》，或许加两句标语，更能引人注目，也能在顾客心里留下一个锚点。</p>
+      <blockquote>
+        <div class="shop-sign">
+  <div class="shop-sign-header">
+    <span class="shop-sign-en">ATELIER · SHOP PROFILE</span>
+    <h3>四月的机械人偶工作室</h3>
+    <p class="shop-sign-intro">
+      <!-- 店面介绍：你可以在这里填写自己的文字 -->
+    </p>
+  </div>
+
+  <div class="shop-sign-divider"></div>
+
+  <div class="shop-sign-business">
+    <!-- 店面业务介绍：你可以在这里填写自己的文字 -->
+  </div>
+
+  <div class="shop-sign-slogans">
+    <span class="shop-sign-label">OUR SLOGAN / 店铺标语</span>
+
+    <textarea
+      id="slogan1-input"
+      rows="2"
+      aria-label="第一句店铺标语"
+      placeholder="写下第一句标语……"
+    >${escapeHTML(state.slogan1)}</textarea>
+
+    <textarea
+      id="slogan2-input"
+      rows="2"
+      aria-label="第二句店铺标语"
+      placeholder="写下第二句标语……"
+    >${escapeHTML(state.slogan2)}</textarea>
+  </div>
+
+  <button class="btn btn-primary" id="save-slogans">确认牌子内容</button>
+</div>
+      </blockquote>
+      <h4>MAIN QUEST / 主线任务</h4>
+      <button class="btn btn-primary" id="open-quest1">查看主线任务 01</button>`;
+    return;
+  }
+
+  if (state.stage === "customer") {
+    story.innerHTML = `
+      <div class="scene-label">03 / 第一位客人</div>
+      <p>发完广告没过几天，店里便来了客人。</p>
+      <p>这是一个晴天，店里正放着轻柔的音乐，四月坐在飘窗上晒太阳。</p>
+      <p>“叮铃铃。”门口的铃声轻响，一个优雅的长发女子推开了那扇木质的店门。</p>
+      <p class="dialogue"><strong>客人：</strong>请问，你们这里是可以进行人偶改造吗？</p>
+      <button class="btn btn-primary" id="open-quest2">查看主线任务 02</button>
+      ${state.readPlantsBook
+  ? `<button class="btn btn-primary" id="to-sidequest">稍后有空时整理店铺</button>`
+  : `<button class="btn btn-primary" disabled>绿植支线尚未解锁</button>`
+}
+      ${state.readPlantsBook
+        ? `<p class="status">你记起了那本关于植物的书。也许可以抽空为工作室添置绿植。</p>`
+        : ""}`;
+    return;
+  }
+
+  if (state.stage === "sidequest") {
+    story.innerHTML = `
+      <div class="scene-label">SIDE QUEST / 支线任务：绿植计划</div>
+      <p>今天店里没什么人，你看着地面和柜子上的灰尘，决定先进行一个大扫除，维持店里的整洁。</p>
+      <p>店里的布局依旧简约，但是这么打扫一下，显得清爽多了。</p>
+      ${state.readPlantsBook ? `
+        <p>看着单调的屋子，你突然想起来了昨天看到的那本《植物对于幸福感的影响》。在房间里摆放绿植，或许可以帮助缓解疲劳与压力。</p>
+        <p>既然主线任务是帮忙经营好店铺，装饰和建设它自然也是重要的环节之一。</p>
+        <p>你决定出门买几株绿植回来装饰店面。</p>
+        <button class="btn btn-primary" id="to-flower-route">前往花鸟市场</button>
+      ` : `
+        <p>店里暂时整理好了。你决定先把这件事记下来，之后有机会再考虑装饰。</p>
+        <button class="btn btn-primary" id="to-flower-route">还是去花鸟市场看看</button>
+      `}`;
+    return;
+  }
+
+  if (state.stage === "flower_route") {
+    story.innerHTML = `
+      <div class="scene-label">04 / 花鸟市场</div>
+      <p>在花鸟市场，你看到了许多丰富的新奇植物。看着这些令人眼花缭乱的绿植，你不禁有些苦恼。</p>
+      <p class="thought">这么多绿植，哪些比较合适呢？</p>
+      <h4>请选择你的购物路线</h4>
+      <div class="choice-card">
+        <button class="btn btn-primary" id="ask-florist">A. 问问老板有什么推荐</button>
+        <button class="btn btn-default" id="choose-alone">B. 自己挑选</button>
+      </div>`;
+    return;
+  }
+
+  if (state.stage === "florist") {
+    story.innerHTML = `
+      <div class="scene-label">ROUTE A / 听取推荐</div>
+      <p class="dialogue"><strong>${escapeHTML(state.playerName)}：</strong>老板，你们这有什么比较受欢迎的绿植啊？</p>
+      <p>花店老板指着一盆金色的花朵说：</p>
+      <p class="dialogue"><strong>老板：</strong>这个，金玲草。自己养或者送人都不会出错的，既好看又好养活。刚好我们今天做活动，店里这一排的植物要是选两种，第二株半价。你还可以再选一个。</p>
+      <p>你看了看这一排花，确实都挺好看的。半价的话，也不是很贵。</p>
+      <h4>请选择</h4>
+      <button class="btn btn-primary" id="buy-golden">就买金玲草和一盆半价植物</button>
+      <button class="btn btn-default" id="choose-alone">还是自己选吧</button>`;
+    return;
+  }
+
+  if (state.stage === "plant_shop") {
+    story.innerHTML = `
+      <div class="scene-label">植物商店 / 自主选购</div>
+      <p>你决定自己挑选。店内摆放着几种不同的植物，你决定挑选一些带回工作室。</p>
+      <h4>请选择要购买的植物（可以多选）</h4>
+      <div class="choice-card">
+        <label class="plant-option">
+          <input type="checkbox" name="plants" value="金玲草" ${state.selectedPlants.includes("金玲草") ? "checked" : ""}>
+          金玲草
+        </label>
+        <label class="plant-option">
+          <input type="checkbox" name="plants" value="银叶花" ${state.selectedPlants.includes("银叶花") ? "checked" : ""}>
+          银叶花
+        </label>
+        <label class="plant-option">
+          <input type="checkbox" name="plants" value="灵蓝草" ${state.selectedPlants.includes("灵蓝草") ? "checked" : ""}>
+          灵蓝草
+        </label>
+      </div>
+      <div class="choice-card">
+        <p><strong>金玲草</strong> —— 一种常见的观赏植物。</p>
+        <p><strong>银叶花</strong> —— 叶片呈银白色，外形优雅。</p>
+        <p><strong>灵蓝草</strong> —— 蓝色的叶片中仿佛流动着隐秘的光辉。</p>
+      </div>
+      <button class="btn btn-primary" id="confirm-plants">确认购买</button>`;
+    return;
+  }
+
+  if (state.stage === "result") {
+    if (!state.lastResult) {
+      story.innerHTML = "";
+      return;
+    }
+
+    story.innerHTML = `
+      <div class="scene-label">SHOPPING RESULT / 购买结果</div>
+      <p>${escapeHTML(state.lastResult.summary)}</p>
+      ${state.lastResult.html}
+      <hr>
+      <button class="btn btn-default" id="restart-flower">重新选择植物</button>
+      <button class="btn btn-primary" id="back-story">返回故事开头</button>`;
+  }
+}
+
+
+function showModal(title, bodyHTML, confirmText, onConfirm) {
+  modalRoot.innerHTML = `
+    <div class="modal-backdrop" role="presentation">
+      <div class="modal-dialog">
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+          <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">${title}</h3>
+          </div>
+          <div class="modal-body">${bodyHTML}</div>
+          <div class="modal-footer">
+            <button class="btn btn-default" id="modal-close">暂时关闭</button>
+            <button class="btn btn-primary" id="modal-confirm">${confirmText}</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+
+  document.getElementById("modal-close").addEventListener("click", () => {
+    modalRoot.innerHTML = "";
+  });
+
+  document.getElementById("modal-confirm").addEventListener("click", () => {
+    modalRoot.innerHTML = "";
+    onConfirm();
+    render();
+  });
+}
+
+
+function openBook(type, title) {
+  state.bookType = type;
+  state.bookTitle = title;
+
+  if (type === "plants") {
+    state.readPlantsBook = true;
+  }
+
+  // 读过的书自动加入收藏，避免重复记录
+  const alreadyCollected = state.collectedBooks.some(
+    book => book.type === type
+  );
+
+  if (!alreadyCollected) {
+    state.collectedBooks.push({ type, title });
+  }
+
+  renderCollectedBooks();
+
+  state.stage = "book";
+  render();
+}
+
+function confirmPlants() {
+  const selected = Array.from(
+    document.querySelectorAll('input[name="plants"]:checked')
+  ).map(input => input.value);
+
+  state.selectedPlants = selected;
+
+  if (selected.length === 0) {
+    state.lastResult = {
+      summary: "你没有购买任何植物。",
+      html: `
+        <p>你在摊位之间慢慢走了一圈，最终还是决定暂时不买了。</p>
+        <p>回到工作室时，四月正安静地坐在桌前研究着什么。</p>`
+    };
+  } else if (selected.includes("银叶花")) {
+    let html = `
+      <div class="scene-label">05 / 回到工作室</div>
+      <p>你最终还是买下了银叶花。</p>
+      <p>回到店里时，四月正安静地坐在桌前研究着什么。听到你回来的开门声，她也没有抬头。</p>
+      <p>你路过的时候顺便看了一眼，像是一张人偶图纸。</p>
+      <p>过了一会儿，你正在人偶展台旁边摆弄刚买回来的盆栽。偶尔听见四月嘴里嘟囔着什么飞行器，什么支持。</p>
+      <p>直到你把银叶花放好，四月才终于注意到它。她的目光在那盆花上停留了片刻。</p>
+      <p><strong>四月：</strong>怎么想起买花了？</p>
+      <p><strong>${escapeHTML(state.playerName)}：</strong>昨天看书的时候突然想到的。我记得那本书叫《植物对于幸福感的影响》。书里说，在房间里摆放绿植可以帮助缓解疲劳与压力，从而提升心理和生理健康水平。</p>
+      <p><strong>${escapeHTML(state.playerName)}：</strong>既然主线任务是帮忙经营好店铺，装饰和建设它自然也是重要的环节之一。说不定把店里布置得更舒服一些，也能让客人更愿意留下来。</p>
+      <p><strong>${escapeHTML(state.playerName)}：</strong>怎么了？是花有什么问题吗？</p>
+      <p>四月似乎怔了一下，随后摇了摇头。</p>
+      <p><strong>四月：</strong>没有。</p>
+      <p>她重新看向那盆银叶花，语气比刚才轻了一些。</p>
+      <p><strong>四月：</strong>只是小时候，家里的佣人也经常会买这种花回来。那时候总能看见，算是有些熟悉吧。</p>
+      <p>她没有再继续说下去。你也没有追问，只是低下头，把剩下的盆栽摆放整齐。</p>
+      <p>工作室里重新安静下来。银白色的叶片在灯光下泛着浅淡的光泽。</p>`;
+
+    if (selected.includes("灵蓝草")) {
+      html += `
+        <p>等你把植物在店里放下之后，四月忽然看向了那盆蓝色植物。</p>
+        <p><strong>四月：</strong>那株蓝色的花叫什么名字？</p>
+        <p><strong>${escapeHTML(state.playerName)}：</strong>那个是灵蓝草。听说可以缓解压力和疲劳，看您经常在工作室里忙碌，或许可以帮到您。</p>
+        <p><strong>四月：</strong>好的，谢谢。</p>
+        <p><strong>${escapeHTML(state.playerName)}：</strong>不客气，这是我应该做的。</p>`;
+    }
+
+    state.lastResult = {
+      summary: `你购买了：${selected.join("、")}。`,
+      html
+    };
+  } else {
+    state.sidequestUnlocked = true;
+
+    state.lastResult = {
+      summary: `你购买了：${selected.join("、")}。`,
+      html: `
+        <div class="scene-label">05 / 回到工作室</div>
+        <p>回到店里时，四月正安静地坐在桌前研究着什么。听到你回来的开门声，她也没有抬头。</p>
+        <p>你路过的时候顺便看了一眼，像是一张人偶图纸。</p>
+        <p>四月好像终于弄明白了图纸上的东西，慢悠悠地伸了个懒腰，便抬起头看向了你。</p>
+        <p><strong>${escapeHTML(state.playerName)}：</strong>店长，你看我新买的盆栽怎么样？</p>
+        <p><strong>四月：</strong>还不错。</p>
+        <p><strong>${escapeHTML(state.playerName)}：</strong>前段时间有客人建议我往店里加一点植物做点缀，所以我就买来尝试一下。没准可以吸引更多的客人呢。</p>
+        <p><strong>${escapeHTML(state.playerName)}：</strong>看您之前都没有布置绿植，我还担心您会不喜欢。</p>
+        <p><strong>四月：</strong>没有不喜欢的，店里你看着布置就好了。</p>
+        <p>四月看了一会儿，突然开口道：</p>
+        <p><strong>四月：</strong>改天可以再买点银叶花回来，好像是叫这个。</p>
+        <p><strong>${escapeHTML(state.playerName)}：</strong>银叶花？怎么了，是有什么特别的地方吗？</p>
+        <p><strong>四月：</strong>没什么。</p>
+        <p>她重新低下头，仿佛刚才只是随口一提。但你还是默默记下了这个名字。</p>
+        <div class="panel">
+          <strong>SIDE QUEST UNLOCKED</strong>
+          <p>新支线任务：购买银叶花。</p>
+          <p>也许下次去植物商店的时候，可以顺便买一盆回来。</p>
+        </div>`
+    };
+  }
+
+  state.stage = "result";
+  render();
+}
+
+function goToFlowerRoute() {
+  if (!state.readPlantsBook) {
+    alert("你还没有读过《植物对于幸福感的影响》，暂时无法开启绿植支线。");
+    return;
+  }
+
+  state.stage = "flower_route";
+  render();
+}
+
+function handleStoryClick(event) {
+  const button = event.target.closest("button");
+  if (!button) return;
+
+  const id = button.id;
+
+  switch (id) {
+    case "confirm-name": {
+      const input = document.getElementById("name-input");
+      const name = input ? input.value.trim() : "";
+
+      if (name.length > 0) {
+        state.playerName = name;
+        state.named = true;
+        state.stage = "naming";
+        render();
+      } else {
+        showToast("如果暂时不想取名，可以点击「稍后再说」。");
+      }
+      break;
+    }
+
+    case "keep-01":
+      state.playerName = "01";
+      state.named = false;
+      state.stage = "tutorial";
+      render();
+      break;
+
+    case "to-tutorial":
+      state.stage = "tutorial";
+      render();
+      break;
+
+    case "to-manual":
+      state.stage = "manual";
+      render();
+      break;
+
+    case "to-bookshelf":
+      state.stage = "bookshelf";
+      render();
+      break;
+      
+    case "book-history":
+      openBook("history", "《世界史》");
+
+    case "book-magic":
+      openBook("magic", "《魔法 × 工业的世界（儿童科普读物）》");
+      break;
+
+    case "book-30min":
+      openBook("30min", "《30分钟教会你营销》");
+      break;
+
+    case "book-smile":
+      openBook("smile", "《微笑服务》");
+      break;
+
+    case "book-客人":
+      openBook("客人", "《如何三句话拿捏客人的心理》");
+      break;
+
+    case "book-plants":
+      openBook("plants", "《植物对于幸福感的影响》");
+      break;
+
+    case "book-language":
+      openBook("language", "《语言处理器的使用说明》");
+      break;
+
+    case "back-bookshelf":
+      state.stage = "bookshelf";
+      render();
+      break;
+
+    case "to-day2":
+      state.storyDay = 2;
+      state.stage = "day2";
+      render();
+      break;
+
+    case "open-quest1":
+      showModal(
+        "MISSION UPDATE / 主线任务 01",
+        `<p>任务目标：请在三天之内完成广告设计以及店铺宣传。</p>
+         <p>任务奖励：店面建设度 +10。</p>`,
+        "继续营业",
+        () => {
+          state.stage = "customer";
+        }
+      );
+      break;
+
+    case "open-quest2":
+      showModal(
+        "MISSION UPDATE / 主线任务 02",
+        `<p>任务目标：协助完成叶琳娜的人偶改造需求。</p>`,
+        "开始任务",
+        () => {
+          state.stage = "sidequest";
+        }
+      );
+      break;
+
+    case "to-客人":
+      state.stage = "客人";
+      render();
+      break;
+
+    case "to-sidequest":
+      state.stage = "sidequest";
+      render();
+      break;
+
+    case "to-flower-route":
+      goToFlowerRoute();
+      break;
+
+    case "ask-florist":
+      state.selectedRoute = "florist";
+      state.stage = "florist";
+      render();
+      break;
+
+    case "choose-alone":
+      state.selectedRoute = "alone";
+      state.stage = "plant_shop";
+      render();
+      break;
+
+    case "buy-golden":
+      /*
+       * 保留原 R 代码逻辑：
+       * 老板推荐路线会先将金玲草加入购物篮，
+       * 然后读者可以再选择第二株半价植物。
+       */
+      state.selectedPlants = ["金玲草"];
+      state.stage = "plant_shop";
+      render();
+      break;
+
+    case "confirm-plants":
+      confirmPlants();
+      break;
+
+    case "restart-flower":
+      state.stage = "plant_shop";
+      render();
+      break;
+
+    case "back-story":
+      state.stage = "opening";
+      state.lastResult = null;
+      state.selectedPlants = [];
+      render();
+      break;
+
+    case "back-bookshelf":
+  state.stage = "bookshelf";
+  render();
+  break;
+
+  efault:
+  if (id.startsWith("book-")) {
+    const type = id.slice(5);
+
+    if (books[type]) {
+      openBook(type, books[type].title);
+    }
+  }
+  break;
+  }
+}
+
+const utilitySidebar = document.getElementById("utility-sidebar");
+
+document.getElementById("utility-menu-button").addEventListener("click", () => {
+  if (utilitySidebar.classList.contains("open")) {
+    utilitySidebar.classList.remove("open");
+  } else {
+    utilitySidebar.classList.add("open");
+    renderCollectedBooks();
+  }
+});
+
+
+// 修改玩家名字
+document.getElementById("save-rename").addEventListener("click", () => {
+  const input = document.getElementById("rename-input");
+  const newName = input.value.trim();
+
+  if (!newName) {
+    alert("请输入一个名字。");
+    return;
+  }
+
+  state.playerName = newName;
+  state.named = newName !== "01";
+
+  render();
+  renderCollectedBooks();
+  alert("名字已修改！");
+});
+
+// 显示已经读过的书
+function renderCollectedBooks() {
+  const container = document.getElementById("collected-books");
+
+  if (state.collectedBooks.length === 0) {
+    container.innerHTML = "<p>还没有读过任何书。</p>";
+    return;
+  }
+
+  container.innerHTML = state.collectedBooks.map((book, index) => `
+    <button type="button" data-book-index="${index}">
+      ${escapeHTML(book.title)}
+    </button>
+  `).join("");
+}
+
+// 点击书名，重新阅读
+document.getElementById("collected-books").addEventListener("click", event => {
+  const button = event.target.closest("[data-book-index]");
+  if (!button) return;
+
+  const index = Number(button.dataset.bookIndex);
+  const book = state.collectedBooks[index];
+
+  if (book) {
+    openBook(book.type, book.title);
+    utilitySidebar.classList.remove("open");
+  }
+});
+story.addEventListener("input", (event) => {
+  if (event.target.id === "slogan1-input") {
+    state.slogan1 = event.target.value;
+  }
+
+  if (event.target.id === "slogan2-input") {
+    state.slogan2 = event.target.value;
+  }
+
+  const preview = document.getElementById("slogan-preview");
+
+  if (preview) {
+    const paragraphs = preview.querySelectorAll("p");
+    paragraphs[0].textContent = state.slogan1;
+    paragraphs[1].textContent = state.slogan2;
+  }
+});
+
+story.addEventListener("click", (event) => {
+  if (event.target.id === "save-slogans") {
+  const input1 = document.getElementById("slogan1-input").value.trim();
+  const input2 = document.getElementById("slogan2-input").value.trim();
+
+  state.slogan1 = input1 || "本店可为您提供更丰富、便捷的人偶功能。";
+  state.slogan2 = input2 || "致力于让每个人都找到更适合自己的人偶伙伴。";
+
+  // 同步更新输入框和预览，显示最终保存的标语
+  document.getElementById("slogan1-input").value = state.slogan1;
+  document.getElementById("slogan2-input").value = state.slogan2;
+
+  const preview = document.getElementById("slogan-preview");
+  if (preview) {
+    const paragraphs = preview.querySelectorAll("p");
+    paragraphs[0].textContent = state.slogan1;
+    paragraphs[1].textContent = state.slogan2;
+  }
+
+  showToast("标语已保存！");
+}
+});
+story.addEventListener("click", handleStoryClick);
+
+
+// 资料栏：打开书架覆盖层
+document.getElementById("back-to-bookshelf").addEventListener("click", () => {
+  utilitySidebar.classList.remove("open");
+
+  // 显示叠层书架
+  function showOverlayBookshelf() {
+    modalRoot.innerHTML = `
+      <div class="bookshelf-overlay">
+        <div class="bookshelf-window">
+          <button id="close-bookshelf" class="bookshelf-close">关闭 ×</button>
+
+          <div class="scene-label">ARCHIVE / 书架</div>
+          <p>你发现自己看过的书都会自动储存在脑子里，可以随时在脑海中调用和重新阅读其中的内容。刚才的内容看了一知半解，或许需要多看几本才能彻底理解这个世界。</p>
+          <p>现在也没什么其他事情干，看看书架上还有什么有用的书籍吧。</p>
+
+          <h4>请选择想阅读的书籍</h4>
+          <div class="choice-card">
+            ${Object.entries(books).map(([type, book]) => `
+              <button class="btn btn-default" data-overlay-book="${type}">
+                ${escapeHTML(book.title)}
+              </button>
+            `).join("")}
+          </div>
+
+          ${state.readPlantsBook
+            ? `<p class="status">阅读记录：你读过《植物对于幸福感的影响》。后续可以触发买花支线。</p>`
+            : ""}
+        </div>
+      </div>
+    `;
+
+    document.getElementById("close-bookshelf").addEventListener("click", () => {
+      modalRoot.innerHTML = "";
+    });
+
+    modalRoot.querySelectorAll("[data-overlay-book]").forEach(button => {
+      button.addEventListener("click", () => {
+        const type = button.dataset.overlayBook;
+        const book = books[type];
+        if (!book) return;
+
+        // 更新阅读记录，但不调用原来的 openBook()
+        state.bookType = type;
+        state.bookTitle = book.title;
+
+        if (type === "plants") {
+          state.readPlantsBook = true;
+        }
+
+        const alreadyCollected = state.collectedBooks.some(
+          item => item.type === type
+        );
+
+        if (!alreadyCollected) {
+          state.collectedBooks.push({ type, title: book.title });
+        }
+
+        renderCollectedBooks();
+
+        // 在同一个叠层里显示书籍
+        modalRoot.innerHTML = `
+          <div class="bookshelf-overlay">
+            <div class="bookshelf-window">
+              <button id="close-bookshelf" class="bookshelf-close">关闭 ×</button>
+              <div class="scene-label">ARCHIVE / ${escapeHTML(book.title)}</div>
+              ${book.content}
+              <button class="btn btn-primary" id="overlay-back-bookshelf">
+                返回书架
+              </button>
+            </div>
+          </div>
+        `;
+
+        document.getElementById("close-bookshelf").addEventListener("click", () => {
+          modalRoot.innerHTML = "";
+        });
+
+        document.getElementById("overlay-back-bookshelf").addEventListener("click", () => {
+          showOverlayBookshelf();
+        });
+      });
+    });
+  }
+
+  showOverlayBookshelf();
+});
+
+
+// 重新开始游戏
+document.getElementById("重新开始游戏").addEventListener("click", () => {
+  location.reload();
+});
+
+
+/* 初次打开页面时，显示原故事的第一幕。 */
+render();
+</script>
+</body>
+</html>
