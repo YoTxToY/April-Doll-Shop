@@ -1455,19 +1455,30 @@ function renderCollectedBooks() {
   `).join("");
 }
 
-// 点击书名，重新阅读
-document.getElementById("collected-books").addEventListener("click", event => {
-  const button = event.target.closest("[data-book-index]");
-  if (!button) return;
+// 在叠层窗口内显示书籍，不调用 openBook() 或 render()
+  modalRoot.innerHTML = `
+    <div class="bookshelf-overlay">
+      <div class="bookshelf-window">
+        <button id="close-bookshelf" class="bookshelf-close">关闭 ×</button>
+        <div class="scene-label">ARCHIVE / ${escapeHTML(bookData.title)}</div>
+        ${bookData.content}
+        <button class="btn btn-primary" id="overlay-back-bookshelf">
+          返回书架
+        </button>
+      </div>
+    </div>
+  `;
 
-  const index = Number(button.dataset.bookIndex);
-  const book = state.collectedBooks[index];
+  document.getElementById("close-bookshelf").addEventListener("click", () => {
+    modalRoot.innerHTML = "";
+  });
 
-  if (book) {
-    openBook(book.type, book.title);
-    utilitySidebar.classList.remove("open");
-  }
+  document.getElementById("overlay-back-bookshelf").addEventListener("click", () => {
+  modalRoot.innerHTML = "";
+  document.getElementById("back-to-bookshelf").click();
+  });
 });
+
 story.addEventListener("input", (event) => {
   if (event.target.id === "slogan1-input") {
     state.slogan1 = event.target.value;
